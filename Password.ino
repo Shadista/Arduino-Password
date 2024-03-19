@@ -85,7 +85,7 @@ void checkPassword() {
 
   if (inputPassword == password) {
     lcd.clear();
-    lcd.print("Twinkle Twinkle!");
+    lcd.print("Allowed");
     correct = true;
     attempts = 0;
     ledCheck();
