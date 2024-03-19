@@ -18,7 +18,6 @@ byte colPins[COLS] = {5, 4, 3, 2};
 
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
-
 String password = "";
 String newPassword = "";
 int attempts = 0;
@@ -57,12 +56,9 @@ void loop() {
   }
 }
 
-
-
 void checkPassword() {
   String inputPassword;
   char key;
-
   while ((key = keypad.getKey()) != '#'){
     if (key != NO_KEY) {if (key == 'A') {
         backspace(inputPassword);
@@ -72,7 +68,7 @@ void checkPassword() {
       keyPress();
       inputPassword += key;
       lcd.setCursor(inputPassword.length() - 1, 1);
-      lcd.print(key);
+      lcd.print('*');
     } 
     if (key == '*') {
       changePassMode = true;
@@ -87,6 +83,8 @@ void checkPassword() {
   if (inputPassword == password) {
     lcd.clear();
     lcd.print("Twinkle Twinkle!");
+    lcd.setCursor(2, 1);
+    lcd.print("Little Star!");
     correct = true;
     attempts = 0;
     ledCheck();
@@ -112,7 +110,6 @@ void checkPassword() {
 void changePassword() {
   String oldPassword;
   char key;
-
   while ((key = keypad.getKey()) != '#'){
     if (key != NO_KEY) {if (key == 'A') {
         backspace(oldPassword);
@@ -122,10 +119,10 @@ void changePassword() {
       keyPress();
       oldPassword += key;
       lcd.setCursor(oldPassword.length() - 1, 1);
-      lcd.print(key);
+      lcd.print('*');
     }
   }
-  }
+}
     if (oldPassword == password) {
     lcd.clear();
   String newPassword;
@@ -140,7 +137,7 @@ void changePassword() {
       keyPress();
       newPassword += key;
       lcd.setCursor(newPassword.length() - 1, 1);
-      lcd.print(key);
+      lcd.print('*');
     }
   }
 }
@@ -163,8 +160,6 @@ void changePassword() {
   }
 }
 
-
-
 void setPassword() {
   char key;
   while ((key = keypad.getKey()) != '#'){
@@ -176,7 +171,7 @@ void setPassword() {
       keyPress();
       newPassword += key;
       lcd.setCursor(newPassword.length() - 1, 1);
-      lcd.print(key);
+      lcd.print('*');
     }
   }
   }
@@ -186,7 +181,6 @@ void setPassword() {
   lcd.clear();
   lcd.print("Password Done!");
 }
-
 
 void ledCheck() {
   if (attempts == 0) {
@@ -238,7 +232,6 @@ void backspace(String &str) {
 //Credits to Abhishek Ghosh, Neerajkry, and Rohan Goyal for the song source code
 
 int length = 15; // the number of notes
-
 //twinkle twinkle little star
 char notes[] = "ccggaag ffeeddc ggffeed ggffeed ccggaag ffeeddc "; // a space represents a rest
 int beats[] = { 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 4 };
@@ -256,7 +249,6 @@ void playTone(int tone, int duration) {
 void playNote(char note, int duration) {
   char names[] = { 'c', 'd', 'e', 'f', 'g', 'a', 'b', 'C' };
   int tones[] = { 1915, 1700, 1519, 1432, 1275, 1136, 1014, 956 };
-  
   // play the tone corresponding to the note name
   for (int i = 0; i < 8; i++) {
     if (names[i] == note) {
@@ -272,7 +264,6 @@ void twinkle() {
     } else {
       playNote(notes[i], beats[i] * tempo);
     }
-    
     // pause between notes
     delay(tempo / 2); 
   }
