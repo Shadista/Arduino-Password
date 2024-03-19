@@ -53,10 +53,6 @@ void loop() {
       lcd.print("Enter Password:");
       checkPassword();
       buzzerCheck();
-    } else if (key == '*') {
-      changePassMode = true;
-      lcd.clear();
-      changePassword();
     }
   }
 }
